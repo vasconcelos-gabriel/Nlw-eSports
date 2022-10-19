@@ -11,6 +11,7 @@ bannerUrl
 ### Ad - 
 id
 gameId
+name
 yearsPlaying
 discord
 weekDays
