@@ -28,7 +28,7 @@ const CreateAdModal = () => {
     const formData = new FormData(e.target as HTMLFormElement)
     const data = Object.fromEntries(formData)
 
-    if(!data.name) {
+    if (!data.name) {
       return
     }
 

@@ -1,4 +1,3 @@
-import { MagnifyingGlassPlus } from 'phosphor-react'
 import { useState, useEffect } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import axios from 'axios'
@@ -7,14 +6,10 @@ import { GameBanner } from './components/GameBanner'
 import CreateAdBanner from './components/CreateAdBanner'
 import CreateAdModal from './components/Form/CreateAdModal'
 
-
 import './styles/main.css'
 
 import logoImg from './assets/logo-nlw.svg'
-
-
-
-
+import { Slider, SliderProps, Slide } from './components/commons/Slider'
 
 interface Game {
   id: string
@@ -26,6 +21,14 @@ interface Game {
 }
 
 function App() {
+  const settings: SliderProps = {
+    spaceBetween: 20,
+    slidesPerView: 6,
+    navigation: true,
+    draggable: true,
+    loop: true
+  }
+
   const [games, setGames] = useState<Game[]>([])
 
   useEffect(() => {
@@ -46,17 +49,20 @@ function App() {
       </h1>
 
       <div className="grid grid-cols-6 gap-6 mt-16">
-        {games.map(game => {
-          return (
-            <GameBanner
-              key={game.id}
-              bannerUrl={game.bannerUrl}
-              title={game.title}
-              adsCount={game._count.ads}
-            />
-          )
-        })}
+        <Slider settings={settings}>
+          {games.map(game => (
+            <Slide>
+              <GameBanner
+                key={game.id}
+                bannerUrl={game.bannerUrl}
+                title={game.title}
+                adsCount={game._count.ads}
+              />
+            </Slide>
+          ))}
+        </Slider>
       </div>
+
       <Dialog.Root>
         <CreateAdBanner />
         <CreateAdModal />
